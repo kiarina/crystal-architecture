@@ -94,6 +94,21 @@ from example.user._models.user import User
 from example.user._helpers.create_user import create_user
 ```
 
+別のサブパッケージの公開 API を参照するときは、**相対 import ではなく絶対 import** を使います。相対 import は、同じサブパッケージ内部の要素を参照する場合に限定します。こうすることで、「自分の内部実装か／他パッケージの公開 API か」が import 文の形だけで区別できます。
+
+```python
+# 別パッケージの公開面 → 絶対 import
+from example.storage import Storage
+
+# 同じパッケージの内部 → 相対 import
+from ._models.user import User
+```
+
+```python
+# Avoid: 別パッケージの公開面を相対 import で辿る
+from ...storage import Storage
+```
+
 ### 5. 依存関係は一方向に保つ
 
 サブパッケージ内のモジュールは、下位レイヤーにのみ依存できます。

@@ -94,6 +94,21 @@ from example.user._models.user import User
 from example.user._helpers.create_user import create_user
 ```
 
+When referencing another subpackage's public API, use an **absolute import, not a relative one**. Reserve relative imports for elements within the same subpackage. This way the form of the import statement alone tells you whether you're reaching into your own internals or into another package's public API.
+
+```python
+# Another package's public surface → absolute import
+from example.storage import Storage
+
+# Same package's internals → relative import
+from ._models.user import User
+```
+
+```python
+# Avoid: walking into another package's public surface via a relative import
+from ...storage import Storage
+```
+
 ### 5. Keep Dependencies One-Way
 
 Modules inside a subpackage may depend only on lower layers.

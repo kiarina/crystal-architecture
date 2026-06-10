@@ -130,6 +130,26 @@ agent_name: AgentName
 
 Comments and docstrings should be limited to important information that cannot be expressed by code, types, or names alone.
 
+**When to introduce a type alias:**
+
+A type alias like `AgentName` is not something to add unconditionally. Introduce one only when **a value loses its meaning at the point it is assigned or used**. Two signals guide the decision:
+
+* **The raw type doesn't convey the meaning.** A bare `str` or `tuple[str, str]` doesn't tell you *what* string it is, and you'd otherwise need a comment to explain it.
+* **It isn't confined to a short local scope.** Fields, dict keys, and index types (e.g. `dict[tuple[AgentName, AgentKey], Agent]`) appear all over a file, far from their declaration, so their origin gets diluted. Those are exactly the values worth carrying meaning through a type. A local variable whose meaning is obvious from the line above it does not need one.
+
+The job of a type alias is to **carry meaning across scope** — think of it as promoting a comment into the type. Conversely, don't over-apply it to values that read fine inline (`priority: int` and the like).
+
+**Write docstrings at the definition:**
+
+When you do attach a docstring to a type or a field, write it right after the definition (on the line following the assignment). It then shows up as documentation for that symbol itself in IDE autocomplete and hover.
+
+```python
+AgentName: TypeAlias = str
+"""The name that uniquely identifies an agent."""
+```
+
+If a field's type alias already carries the explanation, don't repeat a docstring on the field — it would duplicate the type's.
+
 ## Standard File Structure
 
 A subpackage generally follows this structure:

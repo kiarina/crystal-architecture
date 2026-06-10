@@ -186,6 +186,22 @@ def sweep_expired(self) -> list[str]:
 
 And even for what remains, **prefer expressing it through types and names** to cut prose. If a type alias (Principle 6) or a meaningful parameter or function name can carry the meaning, reach for that before writing a docstring. A docstring is the last resort.
 
+## Single Responsibility and Signs for Splitting
+
+"One file, one responsibility" and "One subpackage, one responsibility."
+These might seem contradictory at first glance, but **it is important to adhere to both, simply at different levels of granularity**.
+
+A single file should have only one responsibility, and similarly, a single subpackage should encapsulate only one feature (domain boundary).
+
+When this "single responsibility" is broken, the project starts showing the following symptoms:
+
+* It becomes difficult to come up with a clear, fitting file or package name.
+* The file tree within a subpackage becomes bloated and visually messy.
+* Dependencies within or between subpackages become complex and tangled.
+
+These symptoms are evidence that the file is taking on too many responsibilities, or the subpackage is hoarding too many features.
+Treat these as **clear signs that a file or subpackage needs to be split**, and perform refactoring accordingly.
+
 ## Standard File Structure
 
 A subpackage generally follows this structure:

@@ -150,6 +150,27 @@ AgentName: TypeAlias = str
 
 If a field's type alias already carries the explanation, don't repeat a docstring on the field — it would duplicate the type's.
 
+### 7. Keep Comments and Docstrings Minimal
+
+Do not write comments or docstrings for things you can learn **by reading the code, its types, its names, or the rest of the file**. Reserve them for what you can only know by looking at another file or module — design intent, threading or ordering constraints, an external protocol, or the contract with callers.
+
+```python
+# Avoid: restating what the body already says
+def resolve_content_type(filename: str, content_type: str | None) -> str:
+    """Use the explicit one if given, else guess from the extension, else the default."""
+    return content_type or guess_type(filename)[0] or DEFAULT_CONTENT_TYPE
+```
+
+```python
+# Good: keep only the caller constraint that the body cannot reveal
+def sweep_expired(self) -> list[str]:
+    """Call on the worker thread — it frees framework memory, so it must not
+    be called from the event loop."""
+    ...
+```
+
+And even for what remains, **prefer expressing it through types and names** to cut prose. If a type alias (Principle 6) or a meaningful parameter or function name can carry the meaning, reach for that before writing a docstring. A docstring is the last resort.
+
 ## Standard File Structure
 
 A subpackage generally follows this structure:

@@ -244,7 +244,7 @@ Each directory has the following role:
 | `_services`   | Class-based business logic                          |
 | `_operations` | Function-based internal logic                       |
 | `_schemas`    | Data-centric classes without business logic         |
-| `_views`      | Input/output data classes exchanged across any interface |
+| `_views`      | Data-centric classes representing inputs/outputs for functions and operations |
 | `_settings`   | Settings such as Pydantic Settings                  |
 | `_constants`  | Constants                                           |
 | `_exceptions` | Exception classes                                   |

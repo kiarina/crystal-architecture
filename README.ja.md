@@ -244,7 +244,7 @@ example/user/
 | `_services`   | クラスベースのビジネスロジック                    |
 | `_operations` | 関数ベースの内部ロジック                       |
 | `_schemas`    | ビジネスロジックを持たない、データ主体のクラス               |
-| `_views`      | インターフェイスでやり取りする入出力の塊（DTOなど）        |
+| `_views`      | あらゆるインターフェイスでやり取りする入出力のデータクラス     |
 | `_settings`   | Pydantic Settings などの設定            |
 | `_constants`  | 定数                                 |
 | `_exceptions` | 例外クラス                              |

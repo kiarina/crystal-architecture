@@ -240,11 +240,11 @@ Each directory has the following role:
 | Directory     | Role                                                |
 | ------------- | --------------------------------------------------- |
 | `_helpers`    | Functions that expose subpackage functionality externally |
-| `_models`     | Data models that contain business logic             |
+| `_models`     | Data-centric classes that contain business logic    |
 | `_services`   | Class-based business logic                          |
 | `_operations` | Function-based internal logic                       |
-| `_schemas`    | Internal data structures without business logic     |
-| `_views`      | Data structures exchanged through interfaces        |
+| `_schemas`    | Data-centric classes without business logic         |
+| `_views`      | Input/output payloads exchanged through interfaces (e.g. DTOs) |
 | `_settings`   | Settings such as Pydantic Settings                  |
 | `_constants`  | Constants                                           |
 | `_exceptions` | Exception classes                                   |

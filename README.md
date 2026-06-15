@@ -129,6 +129,8 @@ Avoid dependencies in the opposite direction.
 
 When dependencies are needed within the same layer, keep them one-way as well so they do not become circular.
 
+However, as an exception, referencing `_schemas` or `_models` from `_types` is permitted when defining a Union type of multiple defined schemas or models.
+
 ### 6. Express Meaning Through Names, Types, and Paths
 
 Avoid relying too much on comments or docstrings. Express as much meaning as possible through names, types, and file paths.

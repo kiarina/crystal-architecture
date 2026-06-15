@@ -374,11 +374,13 @@ from example.client.asyncio import get_client
 
 ## When Using Pydantic
 
+When defining Pydantic models as user-configurable values, actively utilize the model's own description and the title and description of Fields.
+
 When using Pydantic models as entities, prefer field docstrings that are easy to inspect through IDE completion over `Field(description=...)`.
 
 However, if the class name, field name, and type information are enough to make the meaning clear, omit the docstring itself.
 
-Crystal Architecture values the experience of writing and reading code more than automatic documentation generation.
+In Crystal Architecture, it is assumed that maintainers will understand the codebase by reading the code itself rather than automatically generated documentation.
 
 ## Test Structure
 

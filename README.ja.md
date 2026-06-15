@@ -374,11 +374,13 @@ from example.client.asyncio import get_client
 
 ## Pydantic を使う場合
 
-Entity として Pydantic モデルを使う場合、`Field(description=...)` よりも、IDE の補完で確認しやすいフィールド docstring を優先します。
+ユーザーにとって設定可能な値として Pydantic モデルを定義する場合は、
+モデル自身の description や、Field の title, description を積極的に活用します。
 
+Entity として Pydantic モデルを使う場合、`Field(description=...)` よりも、IDE の補完で確認しやすいフィールド docstring を優先します。
 ただし、クラス名・フィールド名・型情報だけで意味が分かる場合は、docstring 自体を省略します。
 
-Crystal Architecture では、ドキュメント自動生成よりも、コードを書くとき・読むときの体験を重視します。
+Crystal Architecture では、メンテナは、自動生成されたドキュメントではなく、コードそのものを読んで理解することを前提としています。
 
 ## テスト構成
 

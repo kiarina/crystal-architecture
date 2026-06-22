@@ -116,6 +116,8 @@ from ...storage import Storage
 ```txt
 _helpers
   ↓
+_instances
+  ↓
 _models / _services / _operations / _exceptions
   ↓
 _settings / _constants
@@ -221,6 +223,8 @@ example/user/
     user_not_found_error.py
   _helpers/
     create_user.py
+  _instances/
+    default_user_service.py
   _models/
     user.py
   _operations/
@@ -243,13 +247,14 @@ example/user/
 | ------------- | ---------------------------------- |
 | `_helpers`    | サブパッケージの機能を外部に提供する関数               |
 | `_models`     | ビジネスロジックを持つ、データ主体のクラス                  |
-| `_services`   | クラスベースのビジネスロジック                    |
+| `_services`   | クラスまたはモジュールとしてまとまったビジネスロジック |
 | `_operations` | 関数ベースの内部ロジック                       |
 | `_schemas`    | ビジネスロジックを持たない、データ主体のクラス               |
 | `_views`      | 関数などの処理に対する入出力の表現が主体のデータクラス     |
 | `_settings`   | Pydantic Settings などの設定            |
 | `_constants`  | 定数                                 |
 | `_exceptions` | 例外クラス                              |
+| `_instances`  | クラスから生成された既定インスタンス、共有インスタンス |
 | `_enums`      | Enum                               |
 | `_types`      | TypeAlias、TypeVar、TypedDict などの型定義 |
 | `_utils`      | 純粋でステートレスな再利用可能ユーティリティ             |

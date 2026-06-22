@@ -116,6 +116,8 @@ Modules inside a subpackage may depend only on lower layers.
 ```txt
 _helpers
   ↓
+_instances
+  ↓
 _models / _services / _operations / _exceptions
   ↓
 _settings / _constants
@@ -221,6 +223,8 @@ example/user/
     user_not_found_error.py
   _helpers/
     create_user.py
+  _instances/
+    default_user_service.py
   _models/
     user.py
   _operations/
@@ -243,13 +247,14 @@ Each directory has the following role:
 | ------------- | --------------------------------------------------- |
 | `_helpers`    | Functions that expose subpackage functionality externally |
 | `_models`     | Data-centric classes that contain business logic    |
-| `_services`   | Class-based business logic                          |
+| `_services`   | Business logic organized as classes or modules      |
 | `_operations` | Function-based internal logic                       |
 | `_schemas`    | Data-centric classes without business logic         |
 | `_views`      | Data-centric classes representing inputs/outputs for functions and operations |
 | `_settings`   | Settings such as Pydantic Settings                  |
 | `_constants`  | Constants                                           |
 | `_exceptions` | Exception classes                                   |
+| `_instances`  | Default or shared instances created from classes    |
 | `_enums`      | Enum definitions                                    |
 | `_types`      | Type definitions such as TypeAlias, TypeVar, and TypedDict |
 | `_utils`      | Pure, stateless, reusable utilities                 |

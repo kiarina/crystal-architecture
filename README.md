@@ -8,7 +8,7 @@ It organizes an entire project into a crystal-like, consistent structure through
 
 The goal is to keep responsibilities readable from the file tree, module names, types, and public APIs even as the codebase grows, reducing cognitive load as much as possible.
 
-## Concept
+## 1. Concept
 
 Crystal Architecture values the following ideas:
 
@@ -23,9 +23,9 @@ Crystal Architecture is not a framework.
 
 It does not introduce a specific runtime library. It is an opinionated architecture guideline for designing, organizing, and maintaining Python packages.
 
-## Core Principles
+## 2. Core Principles
 
-### 1. One File, One Public Element
+### 2.1. One File, One Public Element
 
 A single file should define only one public class, function, type, or constant.
 
@@ -43,7 +43,7 @@ Private helper functions and internal implementation details may live in the sam
 
 This rule makes the relationship between file names and public elements clear, making responsibilities easier to read from the file tree.
 
-### 2. Implement Features as Subpackages
+### 2.2. Implement Features as Subpackages
 
 Do not implement features directly in the top-level package. Split them into feature-based subpackages.
 
@@ -59,7 +59,7 @@ The top-level package is treated as the namespace for the entire project.
 
 Actual functionality is placed in subpackages such as `example.user` or `example.storage`.
 
-### 3. Make Internal Implementation Directories Explicit
+### 2.3. Make Internal Implementation Directories Explicit
 
 Internal implementation directories inside a subpackage should generally use an `_` prefix.
 
@@ -78,7 +78,7 @@ This makes the boundary between public APIs and internal implementation easy to 
 
 Elements used externally are explicitly exported from the subpackage's `__init__.py`.
 
-### 4. Collect Public APIs at the Top Level of Each Subpackage
+### 2.4. Collect Public APIs at the Top Level of Each Subpackage
 
 Users of a subpackage should import public APIs from the subpackage top level instead of depending directly on internal directories.
 
@@ -109,7 +109,7 @@ from ._models.user import User
 from ...storage import Storage
 ```
 
-### 5. Keep Dependencies One-Way
+### 2.5. Keep Dependencies One-Way
 
 Modules inside a subpackage may depend only on lower layers.
 
@@ -133,7 +133,7 @@ When dependencies are needed within the same layer, keep them one-way as well so
 
 However, as an exception, referencing `_schemas` or `_models` from `_types` is permitted when defining a Union type of multiple defined schemas or models.
 
-### 6. Express Meaning Through Names, Types, and Paths
+### 2.6. Express Meaning Through Names, Types, and Paths
 
 Avoid relying too much on comments or docstrings. Express as much meaning as possible through names, types, and file paths.
 
@@ -169,7 +169,7 @@ AgentName: TypeAlias = str
 
 If a field's type alias already carries the explanation, don't repeat a docstring on the field — it would duplicate the type's.
 
-### 7. Keep Comments and Docstrings Minimal
+### 2.7. Keep Comments and Docstrings Minimal
 
 Do not write comments or docstrings for things you can learn **by reading the code, its types, its names, or the rest of the file**. Reserve them for what you can only know by looking at another file or module — design intent, threading or ordering constraints, an external protocol, or the contract with callers.
 
@@ -188,9 +188,9 @@ def sweep_expired(self) -> list[str]:
     ...
 ```
 
-And even for what remains, **prefer expressing it through types and names** to cut prose. If a type alias (Principle 6) or a meaningful parameter or function name can carry the meaning, reach for that before writing a docstring. A docstring is the last resort.
+And even for what remains, **prefer expressing it through types and names** to cut prose. If a type alias (Principle 2.6) or a meaningful parameter or function name can carry the meaning, reach for that before writing a docstring. A docstring is the last resort.
 
-## Single Responsibility and Signs for Splitting
+## 3. Single Responsibility and Signs for Splitting
 
 "One file, one responsibility" and "One subpackage, one responsibility."
 These might seem contradictory at first glance, but **it is important to adhere to both, simply at different levels of granularity**.
@@ -206,7 +206,7 @@ When this "single responsibility" is broken, the project starts showing the foll
 These symptoms are evidence that the file is taking on too many responsibilities, or the subpackage is hoarding too many features.
 Treat these as **clear signs that a file or subpackage needs to be split**, and perform refactoring accordingly.
 
-## Standard File Structure
+## 4. Standard File Structure
 
 A subpackage generally follows this structure:
 
@@ -264,7 +264,7 @@ You do not need to create every directory all the time.
 
 Add only the responsibilities that are needed.
 
-## Role of `__init__.py`
+## 5. Role of `__init__.py`
 
 `__init__.py` defines the public API of a subpackage.
 
@@ -311,7 +311,7 @@ def __getattr__(name: str) -> object:
     return globals()[name]
 ```
 
-## Plugin Pattern
+## 6. Plugin Pattern
 
 When using a plugin pattern, separate the abstraction layer from the implementation layer.
 
@@ -347,7 +347,7 @@ example/storage_impl/
 
 Implementation classes are resolved dynamically by import path, and users depend on the abstraction layer.
 
-## Supporting Both Sync and Async APIs
+## 7. Supporting Both Sync and Async APIs
 
 When providing both synchronous and asynchronous versions, separate the public APIs while collecting shared logic in `_core`.
 
@@ -377,7 +377,7 @@ The asynchronous version is used like this:
 from example.client.asyncio import get_client
 ```
 
-## When Using Pydantic
+## 8. When Using Pydantic
 
 When defining Pydantic models as user-configurable values, actively utilize the model's own description and the title and description of Fields.
 
@@ -387,7 +387,7 @@ However, if the class name, field name, and type information are enough to make 
 
 In Crystal Architecture, it is assumed that maintainers will understand the codebase by reading the code itself rather than automatically generated documentation.
 
-## Test Structure
+## 9. Test Structure
 
 Test code should mirror the file structure of the target subpackage.
 
@@ -411,7 +411,7 @@ As a rule, aim for 100% line coverage.
 
 However, for branches that are only for type-checking workarounds or are practically unreachable in the runtime environment, add `# pragma: no cover` to the implementation instead of forcing tests for them.
 
-## Projects Where This Fits Well
+## 10. Projects Where This Fits Well
 
 Crystal Architecture fits projects such as:
 
@@ -423,7 +423,7 @@ Crystal Architecture fits projects such as:
 * Projects with plugin extensions
 * Projects that provide both synchronous and asynchronous APIs
 
-## Cases Where This May Be Unnecessary
+## 11. Cases Where This May Be Unnecessary
 
 Crystal Architecture may be excessive for cases such as:
 
@@ -436,7 +436,7 @@ Crystal Architecture is not a rule for all Python code.
 
 It is a design guideline for codebases that are expected to grow, be reused, and be maintained.
 
-## Documentation
+## 12. Documentation
 
 Detailed documentation will be added under `docs/`.
 
@@ -460,7 +460,7 @@ Main documents:
 * Comments and Docstrings
 * Glossary
 
-## Examples
+## 13. Examples
 
 Implementation examples are placed in `examples/`.
 
@@ -471,7 +471,7 @@ examples/
   sync-async-package/
 ```
 
-## Templates
+## 14. Templates
 
 Reusable templates are placed in `templates/`.
 
@@ -482,12 +482,12 @@ templates/
 
 In the future, this can evolve into `copier`, `cookiecutter`, a CLI, import rule checkers, and similar tools.
 
-## License
+## 15. License
 
 This project is intended to be published as OSS.
 
 See the repository `LICENSE`.
 
-## Philosophy
+## 16. Philosophy
 
 Programming is Elegant.

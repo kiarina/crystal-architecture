@@ -462,7 +462,7 @@ docs/
 
 ## 13. Examples
 
-実装例は `examples/` に配置します。
+実装例は `examples/` に追加予定です。
 
 ```txt
 examples/
@@ -473,7 +473,7 @@ examples/
 
 ## 14. Templates
 
-再利用可能な雛形は `templates/` に配置します。
+再利用可能な雛形は `templates/` に追加予定です。
 
 ```txt
 templates/

@@ -462,7 +462,7 @@ Main documents:
 
 ## 13. Examples
 
-Implementation examples are placed in `examples/`.
+Implementation examples will be added under `examples/`.
 
 ```txt
 examples/
@@ -473,7 +473,7 @@ examples/
 
 ## 14. Templates
 
-Reusable templates are placed in `templates/`.
+Reusable templates will be added under `templates/`.
 
 ```txt
 templates/
